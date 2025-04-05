@@ -32,9 +32,9 @@
 .content {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  height: 300vh;
+  min-height: 150vh;
   width: 247%;
   padding: 20px;
   text-align: center;
