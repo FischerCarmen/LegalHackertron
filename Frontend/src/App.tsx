@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { CNavbar, CNavbarBrand, CNavbarNav, CNavItem, CNavLink, CContainer, CRow, CCol, CCard, CCardBody, CCardHeader, CCardText, CFormInput } from '@coreui/react';
 import './App.css';
 
 interface Bewerbung {
@@ -69,74 +70,87 @@ const App: React.FC = () => {
 
     return (
         <div>
-            <nav className="navbar">
-                <div className="navbar-brand">Förderungrechner</div>
-                <div className="navbar-nav">
-                    <a className="nav-item" href="#">Home</a>
-                    <a className="nav-item" href="#">Über uns</a>
-                </div>
-            </nav>
+            <CNavbar expand="lg" colorScheme="dark" className="bg-primary">
+                <CContainer fluid>
+                    <CNavbarBrand href="#">Förderungrechner</CNavbarBrand>
+                    <CNavbarNav>
+                        <CNavItem>
+                            <CNavLink href="#">Home</CNavLink>
+                        </CNavItem>
+                        <CNavItem>
+                            <CNavLink href="#">Über uns</CNavLink>
+                        </CNavItem>
+                    </CNavbarNav>
+                </CContainer>
+            </CNavbar>
 
-            <div className="content">
-                <h3>Willkommen zur Förderungsrechner!</h3>
-                <p>Liste der Förderungen</p>
-                <input
-                    type="text"
-                    placeholder="Suche nach Beschreibung"
-                    value={search}
-                    onChange={handleSearchChange}
-                />
-                <div className="questionnaire" style={{cursor: 'pointer'}}>
-                    <h4>
-                    <span onClick={() => setQuestionnaireExpanded(!questionnaireExpanded)}>
-                        Fragebogen {questionnaireExpanded ? '▲' : '▼'}
-                    </span>
-                    </h4>
-                    {questionnaireExpanded && (
-                        <div>
-                            <label>
-                                Voraussetzung 1:
-                                <input type="text" name="voraussetzung1" onChange={handleQuestionnaireChange}/>
-                            </label>
-                            <label>
-                                Voraussetzung 2:
-                                <input type="text" name="voraussetzung2" onChange={handleQuestionnaireChange}/>
-                            </label>
+            <CContainer className="mt-4">
+                <CRow>
+                    <CCol>
+                        <h3>Willkommen zur Förderungsrechner!</h3>
+                        <p>Liste der Förderungen</p>
+                        <CFormInput
+                            type="text"
+                            placeholder="Suche nach Beschreibung"
+                            value={search}
+                            onChange={handleSearchChange}
+                        />
+                        <div className="questionnaire mt-3">
+                            <h4 onClick={() => setQuestionnaireExpanded(!questionnaireExpanded)} style={{ cursor: 'pointer' }}>
+                                Fragebogen {questionnaireExpanded ? '▲' : '▼'}
+                            </h4>
+                            {questionnaireExpanded && (
+                                <div>
+                                    <CFormInput
+                                        type="text"
+                                        name="voraussetzung1"
+                                        placeholder="Voraussetzung 1"
+                                        onChange={handleQuestionnaireChange}
+                                        className="mb-2"
+                                    />
+                                    <CFormInput
+                                        type="text"
+                                        name="voraussetzung2"
+                                        placeholder="Voraussetzung 2"
+                                        onChange={handleQuestionnaireChange}
+                                    />
+                                </div>
+                            )}
                         </div>
-                    )}
-                </div>
-                {filteredData.map((förderung, index) => (
-                    <div key={index} className="förderung" onClick={() => toggleExpand(index)}
-                         style={{cursor: 'pointer'}}>
-                        <h4>{förderung.name}</h4>
-                        <p style={{fontSize: 'small'}}
-                           dangerouslySetInnerHTML={{__html: highlightText(förderung.beschreibung, search)}}></p>
-                        {expanded === index && (
-                            <div>
-                                <p>Betrag: {förderung.betrag} {förderung.währung || ''}</p>
-                                <p>Voraussetzungen:</p>
-                                <ul>
-                                    {förderung.voraussetzungen.map((voraussetzung, i) => (
-                                        <li key={i}>{voraussetzung}</li>
-                                    ))}
-                                </ul>
-                                <p>Bewerbungsfrist: {förderung.bewerbung.frist}</p>
-                                <p>Bewerbungsprozess:</p>
-                                <ul>
-                                    {förderung.bewerbung.prozess.map((schritt, i) => (
-                                        <li key={i}>{schritt}</li>
-                                    ))}
-                                </ul>
-                                <p>Kontakt:</p>
-                                <p>Telefon: {förderung.bewerbung.kontakt.telefon}</p>
-                                <p>Email: {förderung.bewerbung.kontakt.email}</p>
-                                <p>Website: <a href={förderung.bewerbung.kontakt.website}>{förderung.bewerbung.kontakt.website}</a></p>
-                                <img src={förderung.favicon} alt={`${förderung.name} favicon`} />
-                            </div>
-                        )}
-                    </div>
-                ))}
-            </div>
+                        {filteredData.map((förderung, index) => (
+                            <CCard key={index} className="mt-3" onClick={() => toggleExpand(index)} style={{ cursor: 'pointer' }}>
+                                <CCardHeader>{förderung.name}</CCardHeader>
+                                <CCardBody>
+                                    <CCardText dangerouslySetInnerHTML={{ __html: highlightText(förderung.beschreibung, search) }}></CCardText>
+                                    {expanded === index && (
+                                        <div>
+                                            <CCardText>Betrag: {förderung.betrag} {förderung.währung || ''}</CCardText>
+                                            <CCardText>Voraussetzungen:</CCardText>
+                                            <ul>
+                                                {förderung.voraussetzungen.map((voraussetzung, i) => (
+                                                    <li key={i}>{voraussetzung}</li>
+                                                ))}
+                                            </ul>
+                                            <CCardText>Bewerbungsfrist: {förderung.bewerbung.frist}</CCardText>
+                                            <CCardText>Bewerbungsprozess:</CCardText>
+                                            <ul>
+                                                {förderung.bewerbung.prozess.map((schritt, i) => (
+                                                    <li key={i}>{schritt}</li>
+                                                ))}
+                                            </ul>
+                                            <CCardText>Kontakt:</CCardText>
+                                            <CCardText>Telefon: {förderung.bewerbung.kontakt.telefon}</CCardText>
+                                            <CCardText>Email: {förderung.bewerbung.kontakt.email}</CCardText>
+                                            <CCardText>Website: <a href={förderung.bewerbung.kontakt.website}>{förderung.bewerbung.kontakt.website}</a></CCardText>
+                                            <img src={förderung.favicon} alt={`${förderung.name} favicon`} />
+                                        </div>
+                                    )}
+                                </CCardBody>
+                            </CCard>
+                        ))}
+                    </CCol>
+                </CRow>
+            </CContainer>
         </div>
     );
 }
