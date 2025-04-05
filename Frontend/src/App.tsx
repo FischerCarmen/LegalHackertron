@@ -16,7 +16,7 @@ interface Förderung {
     name: string;
     beschreibung: string;
     betrag: string;
-    währung: string;
+    währung: string | null;
     voraussetzungen: string[];
     bewerbung: Bewerbung;
     favicon: string;
@@ -30,9 +30,9 @@ const App: React.FC = () => {
     const [questionnaireAnswers, setQuestionnaireAnswers] = useState<{ [key: string]: string }>({});
 
     useEffect(() => {
-        fetch('/data.json')
+        fetch('http://localhost:8080/foerderung')
             .then(response => response.json())
-            .then(data => setData(data.förderungen));
+            .then(data => setData(data));
     }, []);
 
     const toggleExpand = (index: number) => {
@@ -113,10 +113,10 @@ const App: React.FC = () => {
                            dangerouslySetInnerHTML={{__html: highlightText(förderung.beschreibung, search)}}></p>
                         {expanded === index && (
                             <div>
-                                <p>Betrag: {förderung.betrag} {förderung.währung}</p>
+                                <p>Betrag: {förderung.betrag} {förderung.währung || ''}</p>
                                 <p>Voraussetzungen:</p>
                                 <ul>
-                                {förderung.voraussetzungen.map((voraussetzung, i) => (
+                                    {förderung.voraussetzungen.map((voraussetzung, i) => (
                                         <li key={i}>{voraussetzung}</li>
                                     ))}
                                 </ul>
