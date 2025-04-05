@@ -1,0 +1,28 @@
+{
+    "förderungen": 
+      {
+        "institution": "Name der Institution",
+        "name": "Name der Förderung",
+        "beschreibung": "Kurze Beschreibung der Förderung",
+        "betrag": "Förderhöhe (falls zutreffend)",
+        "währung": "Währungseinheit",
+        "voraussetzungen": [
+          "Voraussetzung 1",
+          "Voraussetzung 2"
+        ],
+        "bewerbung": {
+          "frist": "",
+          "prozess": [
+            "Schritt 1 der Bewerbung",
+            "Schritt 2 der Bewerbung"
+          ],
+          "kontakt": {
+            "telefon": "Telefonnummer",
+            "email": "E-Mail-Adresse",
+            "website": "Webseiten-Link"
+          }
+        },
+        "favicon": "path/to/image"
+      }
+  }
+  
