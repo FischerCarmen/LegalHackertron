@@ -54,9 +54,9 @@ const App: React.FC = () => {
                         <h4 onClick={() => toggleExpand(index)} style={{ cursor: 'pointer' }}>
                             {förderung.name}
                         </h4>
+                        <p style={{ fontSize: 'small' }}>{förderung.beschreibung}</p>
                         {expanded === index && (
                             <div>
-                                <p>{förderung.beschreibung}</p>
                                 <p>Betrag: {förderung.betrag} {förderung.währung}</p>
                                 <p>Voraussetzungen:</p>
                                 <ul>
