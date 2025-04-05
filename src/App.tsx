@@ -26,6 +26,8 @@ const App: React.FC = () => {
     const [data, setData] = useState<Förderung[]>([]);
     const [expanded, setExpanded] = useState<number | null>(null);
     const [search, setSearch] = useState<string>('');
+    const [questionnaireExpanded, setQuestionnaireExpanded] = useState<boolean>(false);
+    const [questionnaireAnswers, setQuestionnaireAnswers] = useState<{ [key: string]: string }>({});
 
     useEffect(() => {
         fetch('/data.json')
@@ -41,6 +43,13 @@ const App: React.FC = () => {
         setSearch(event.target.value);
     };
 
+    const handleQuestionnaireChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setQuestionnaireAnswers({
+            ...questionnaireAnswers,
+            [event.target.name]: event.target.value
+        });
+    };
+
     const highlightText = (text: string, highlight: string) => {
         if (!highlight.trim()) {
             return text;
@@ -50,7 +59,12 @@ const App: React.FC = () => {
     };
 
     const filteredData = data.filter(förderung =>
-        förderung.beschreibung.toLowerCase().includes(search.toLowerCase())
+        förderung.beschreibung.toLowerCase().includes(search.toLowerCase()) &&
+        Object.keys(questionnaireAnswers).every(key =>
+            förderung.voraussetzungen.some(voraussetzung =>
+                voraussetzung.toLowerCase().includes(questionnaireAnswers[key].toLowerCase())
+            )
+        )
     );
 
     return (
@@ -72,16 +86,37 @@ const App: React.FC = () => {
                     value={search}
                     onChange={handleSearchChange}
                 />
+                <div className="questionnaire" style={{cursor: 'pointer'}}>
+                    <h4>
+                    <span onClick={() => setQuestionnaireExpanded(!questionnaireExpanded)}>
+                        Fragebogen {questionnaireExpanded ? '▲' : '▼'}
+                    </span>
+                    </h4>
+                    {questionnaireExpanded && (
+                        <div>
+                            <label>
+                                Voraussetzung 1:
+                                <input type="text" name="voraussetzung1" onChange={handleQuestionnaireChange}/>
+                            </label>
+                            <label>
+                                Voraussetzung 2:
+                                <input type="text" name="voraussetzung2" onChange={handleQuestionnaireChange}/>
+                            </label>
+                        </div>
+                    )}
+                </div>
                 {filteredData.map((förderung, index) => (
-                    <div key={index} className="förderung" onClick={() => toggleExpand(index)} style={{ cursor: 'pointer' }}>
+                    <div key={index} className="förderung" onClick={() => toggleExpand(index)}
+                         style={{cursor: 'pointer'}}>
                         <h4>{förderung.name}</h4>
-                        <p style={{ fontSize: 'small' }} dangerouslySetInnerHTML={{ __html: highlightText(förderung.beschreibung, search) }}></p>
+                        <p style={{fontSize: 'small'}}
+                           dangerouslySetInnerHTML={{__html: highlightText(förderung.beschreibung, search)}}></p>
                         {expanded === index && (
                             <div>
                                 <p>Betrag: {förderung.betrag} {förderung.währung}</p>
                                 <p>Voraussetzungen:</p>
                                 <ul>
-                                    {förderung.voraussetzungen.map((voraussetzung, i) => (
+                                {förderung.voraussetzungen.map((voraussetzung, i) => (
                                         <li key={i}>{voraussetzung}</li>
                                     ))}
                                 </ul>
