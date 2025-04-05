@@ -73,10 +73,8 @@ const App: React.FC = () => {
                     onChange={handleSearchChange}
                 />
                 {filteredData.map((förderung, index) => (
-                    <div key={index} className="förderung">
-                        <h4 onClick={() => toggleExpand(index)} style={{ cursor: 'pointer' }}>
-                            {förderung.name}
-                        </h4>
+                    <div key={index} className="förderung" onClick={() => toggleExpand(index)} style={{ cursor: 'pointer' }}>
+                        <h4>{förderung.name}</h4>
                         <p style={{ fontSize: 'small' }} dangerouslySetInnerHTML={{ __html: highlightText(förderung.beschreibung, search) }}></p>
                         {expanded === index && (
                             <div>
