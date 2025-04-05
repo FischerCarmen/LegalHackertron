@@ -25,6 +25,7 @@ interface Förderung {
 const App: React.FC = () => {
     const [data, setData] = useState<Förderung[]>([]);
     const [expanded, setExpanded] = useState<number | null>(null);
+    const [search, setSearch] = useState<string>('');
 
     useEffect(() => {
         fetch('/data.json')
@@ -36,10 +37,18 @@ const App: React.FC = () => {
         setExpanded(expanded === index ? null : index);
     };
 
+    const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setSearch(event.target.value);
+    };
+
+    const filteredData = data.filter(förderung =>
+        förderung.beschreibung.toLowerCase().includes(search.toLowerCase())
+    );
+
     return (
         <div>
             <nav className="navbar">
-                <div className="navbar-brand">Meine App</div>
+                <div className="navbar-brand">Förderungrechner</div>
                 <div className="navbar-nav">
                     <a className="nav-item" href="#">Home</a>
                     <a className="nav-item" href="#">Über uns</a>
@@ -47,9 +56,15 @@ const App: React.FC = () => {
             </nav>
 
             <div className="content">
-                <h3>Willkommen zur Förderungsapp!</h3>
+                <h3>Willkommen zur Förderungsrechner!</h3>
                 <p>Liste der Förderungen</p>
-                {data.map((förderung, index) => (
+                <input
+                    type="text"
+                    placeholder="Suche nach Beschreibung"
+                    value={search}
+                    onChange={handleSearchChange}
+                />
+                {filteredData.map((förderung, index) => (
                     <div key={index} className="förderung">
                         <h4 onClick={() => toggleExpand(index)} style={{ cursor: 'pointer' }}>
                             {förderung.name}
