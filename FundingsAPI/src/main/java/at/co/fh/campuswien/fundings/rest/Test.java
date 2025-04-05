@@ -1,18 +1,26 @@
 package at.co.fh.campuswien.fundings.rest;
 
+import at.co.fh.campuswien.fundings.FoerderungRepository;
+import at.co.fh.campuswien.fundings.enitity.Foerderung;
 import at.co.fh.campuswien.fundings.service.OehScraper;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/test")
+@RequestMapping("/foerderung")
 public class Test {
+    @Autowired
+    FoerderungRepository foerderungRepository;
 
     @GetMapping
-    public List<String> test() {
-        return OehScraper.scrape();
+    public List<Foerderung> get() {
+        return foerderungRepository.findAll();
+    }
+
+    @PostMapping
+    public Foerderung post(@RequestBody Foerderung foerderung) {
+        return foerderungRepository.save(foerderung);
     }
 }

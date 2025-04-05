@@ -9,11 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OehScraper {
-    public static List<String> scrape() {
+    public static List<String> scrape(String url) {
         List<String> urls = new ArrayList<>();
             try {
-                // Webseite abrufen
-                String url = "https://www.studienplattform.at/api/grantsout.php";
                 Document document = Jsoup.connect(url).get();
 
                 // Tabelle finden
