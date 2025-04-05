@@ -1,0 +1,8 @@
+2025-04-05 13:08:07.056938+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabelle "FOERDERUNG" nicht gefunden (diese Datenbank ist leer)
+Table "FOERDERUNG" not found (this database is empty); SQL statement:
+insert into foerderung (beschreibung,betrag,frist,email,telefon,website,favicon,institution,name,waehrung,id) values (?,?,?,?,?,?,?,?,?,?,default) [42104-232]
+2025-04-05 13:08:09.511884+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabelle "FOERDERUNG" nicht gefunden (diese Datenbank ist leer)
+Table "FOERDERUNG" not found (this database is empty); SQL statement:
+insert into foerderung (beschreibung,betrag,frist,email,telefon,website,favicon,institution,name,waehrung,id) values (?,?,?,?,?,?,?,?,?,?,default) [42104-232]
