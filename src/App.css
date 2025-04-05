@@ -5,7 +5,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 247%;
+  width: 100vw;
 }
 
 .navbar-brand {
@@ -35,7 +35,7 @@
   justify-content: flex-start;
   align-items: center;
   min-height: 150vh;
-  width: 247%;
+  width: 100vw;
   padding: 20px;
   text-align: center;
 }
@@ -46,7 +46,7 @@
 
 .förderung {
   max-width: 600px;
-  width: 100%;
+  width: 100vw;
   margin: 20px 0;
   padding: 20px;
   border: 1px solid #ddd;
