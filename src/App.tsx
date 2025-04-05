@@ -41,6 +41,14 @@ const App: React.FC = () => {
         setSearch(event.target.value);
     };
 
+    const highlightText = (text: string, highlight: string) => {
+        if (!highlight.trim()) {
+            return text;
+        }
+        const regex = new RegExp(`(${highlight})`, 'gi');
+        return text.replace(regex, (match) => `<span class="highlight">${match}</span>`);
+    };
+
     const filteredData = data.filter(förderung =>
         förderung.beschreibung.toLowerCase().includes(search.toLowerCase())
     );
@@ -69,7 +77,7 @@ const App: React.FC = () => {
                         <h4 onClick={() => toggleExpand(index)} style={{ cursor: 'pointer' }}>
                             {förderung.name}
                         </h4>
-                        <p style={{ fontSize: 'small' }}>{förderung.beschreibung}</p>
+                        <p style={{ fontSize: 'small' }} dangerouslySetInnerHTML={{ __html: highlightText(förderung.beschreibung, search) }}></p>
                         {expanded === index && (
                             <div>
                                 <p>Betrag: {förderung.betrag} {förderung.währung}</p>
