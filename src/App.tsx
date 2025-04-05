@@ -1,7 +1,36 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.css';
 
+interface Bewerbung {
+    frist: string;
+    prozess: string[];
+    kontakt: {
+        telefon: string;
+        email: string;
+        website: string;
+    };
+}
+
+interface Förderung {
+    institution: string;
+    name: string;
+    beschreibung: string;
+    betrag: string;
+    währung: string;
+    voraussetzungen: string[];
+    bewerbung: Bewerbung;
+    favicon: string;
+}
+
 const App: React.FC = () => {
+    const [data, setData] = useState<Förderung[]>([]);
+
+    useEffect(() => {
+        fetch('/data.json')
+            .then(response => response.json())
+            .then(data => setData(data.förderungen));
+    }, []);
+
     return (
         <div>
             <nav className="navbar">
@@ -13,8 +42,33 @@ const App: React.FC = () => {
             </nav>
 
             <div className="content">
-                <h3>Willkommen zu meinem Mockup!</h3>
-                <p>Dies ist ein Mockup, das mit React, TypeScript und normalem CSS erstellt wurde.</p>
+                <h3>Willkommen zur Förderungsapp!</h3>
+                <p>Liste der Förderungen</p>
+                {data.map((förderung, index) => (
+                    <div key={index} className="förderung">
+                        <h4>{förderung.name}</h4>
+                        <p>{förderung.beschreibung}</p>
+                        <p>Betrag: {förderung.betrag} {förderung.währung}</p>
+                        <p>Voraussetzungen:</p>
+                        <ul>
+                            {förderung.voraussetzungen.map((voraussetzung, i) => (
+                                <li key={i}>{voraussetzung}</li>
+                            ))}
+                        </ul>
+                        <p>Bewerbungsfrist: {förderung.bewerbung.frist}</p>
+                        <p>Bewerbungsprozess:</p>
+                        <ul>
+                            {förderung.bewerbung.prozess.map((schritt, i) => (
+                                <li key={i}>{schritt}</li>
+                            ))}
+                        </ul>
+                        <p>Kontakt:</p>
+                        <p>Telefon: {förderung.bewerbung.kontakt.telefon}</p>
+                        <p>Email: {förderung.bewerbung.kontakt.email}</p>
+                        <p>Website: <a href={förderung.bewerbung.kontakt.website}>{förderung.bewerbung.kontakt.website}</a></p>
+                        <img src={förderung.favicon} alt={`${förderung.name} favicon`} />
+                    </div>
+                ))}
             </div>
         </div>
     );

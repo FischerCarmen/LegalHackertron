@@ -1,0 +1,80 @@
+{
+  "förderungen": [
+    {
+      "id": 1,
+      "institution": "Österreichische Akademie der Wissenschaften (ÖAW)",
+      "name": "Eurasia Young Scholars Award for Research in East and Southeast Asia",
+      "beschreibung": "Förderung für Forschungsaufenthalte in Ost- und Südostasien mit Fokus auf digitale Werkzeuge und Methoden zur Untersuchung des kulturellen Erbes.",
+      "betrag": "Maximal 10.000",
+      "waehrung": null,
+      "voraussetzungen": [
+        "Doktorand:innen oder Postdoktorand:innen (max. 8 Jahre nach Abschluss der Promotion)",
+        "Anstellung oder Immatrikulation an einer akademischen Institution in Österreich"
+      ],
+      "bewerbung": {
+        "frist": "15. September 2025",
+        "prozess": [
+          "Einreichung von Lebenslauf und Publikationsliste",
+          "Projektbeschreibung (5–10 Seiten) mit Forschungsfragen, Methodik und Zeitplan",
+          "Budgetplan und Absichtserklärungen von lokalen Partner:innen"
+        ],
+        "kontakt": {
+          "telefon": "+43 1 51581-7217",
+          "email": "calls.eurasia@oeaw.ac.at",
+          "website": "https://www.oeaw.ac.at/eurasian-transformations/eurasia-young-scholars-award-for-research-in-east-and-southeast-asia-alpha"
+        }
+      },
+      "favicon": "https://www.oeaw.ac.at/favicon.ico"
+    },
+    {
+      "id": 2,
+      "institution": "Akademie der bildenden Künste Wien",
+      "name": "Akademiestipendien",
+      "beschreibung": "Verschiedene Stipendien zur Förderung von Studierenden, darunter Leistungsstipendien, Förderungsstipendien, Arbeitsstipendien und Sozialstipendien.",
+      "betrag": "Variiert je nach Stipendium",
+      "waehrung": null,
+      "voraussetzungen": [
+        "Ordentliche Studierende der Akademie der bildenden Künste Wien",
+        "Erfüllung spezifischer Kriterien je nach Stipendium (z. B. Studienleistungen, soziale Bedürftigkeit)"
+      ],
+      "bewerbung": {
+        "frist": "Unterschiedlich je nach Stipendium",
+        "prozess": [
+          "Einreichung der erforderlichen Unterlagen (z. B. Studiennachweise, Projektbeschreibungen)",
+          "Prüfung durch die zuständigen Stellen der Akademie"
+        ],
+        "kontakt": {
+          "telefon": "Nicht angegeben",
+          "email": "Nicht angegeben",
+          "website": "https://www.akbild.ac.at/de/studium/stipendien-preise/akademiestipendien"
+        }
+      },
+      "favicon": "https://www.akbild.ac.at/favicon.ico"
+    },
+    {
+      "id": 3,
+      "institution": "Arbeiterkammer Oberösterreich",
+      "name": "AK Wissenschaftspreis",
+      "beschreibung": "Förderung für wissenschaftliche Arbeiten, die der Verbesserung der Arbeits- und Lebensbedingungen der Arbeitnehmer:innen dienen. Der Preis wird in zwei Kategorien vergeben: Dissertationen und wissenschaftliche Artikel sowie Master- und Diplomarbeiten.",
+      "betrag": "Bis zu 9.000 Euro (Kategorie A) und bis zu 1.000 Euro (Kategorie B)",
+      "waehrung": null,
+      "voraussetzungen": [
+        "Kategorie A: Dissertationen oder wissenschaftliche Artikel, die sich mit den Kernthemen der Arbeiterkammer befassen.",
+        "Kategorie B: Master- und Diplomarbeiten im Anfangsstadium, Teilnahme an Kolloquien."
+      ],
+      "bewerbung": {
+        "frist": "31. August 2024",
+        "prozess": [
+          "Einreichung von Bewerbungsschreiben, Lebenslauf und Exposé.",
+          "Prüfung durch eine Jury und Auswahl der Preisträger:innen."
+        ],
+        "kontakt": {
+          "telefon": "Nicht angegeben",
+          "email": "Nicht angegeben",
+          "website": "https://ooe.arbeiterkammer.at/wissenschaftspreis"
+        }
+      },
+      "favicon": "https://ooe.arbeiterkammer.at/favicon.ico"
+    }
+  ]
+}
