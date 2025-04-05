@@ -1,4 +1,14 @@
 /* App.css */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
 .navbar {
   background-color: #007bff;
   padding: 1rem;
@@ -38,6 +48,7 @@
   width: 100vw;
   padding: 20px;
   text-align: center;
+  overflow-x: hidden;
 }
 
 .content h3 {
@@ -46,7 +57,7 @@
 
 .förderung {
   max-width: 600px;
-  width: 100vw;
+  width: 100%;
   margin: 20px 0;
   padding: 20px;
   border: 1px solid #ddd;
