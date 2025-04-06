@@ -131,12 +131,12 @@ const App: React.FC = () => {
                             <h3 className="title">Liste der Förderungen</h3>
                             <hr className="my-4"/>
                             {currentItems.map((förderung, index) => (
-                                <CCard key={index} className="mt-3" onClick={() => toggleExpand(index)}
-                                       style={{cursor: 'pointer'}}>
-                                    <CCardHeader>{förderung.name}</CCardHeader>
+                                <CCard key={index} className="mt-3" onClick={() => toggleExpand(index)} style={{ cursor: 'pointer' }}>
+                                    <CCardHeader dangerouslySetInnerHTML={{ __html: highlightText(förderung.name, selectedSearchOption === 'name' ? search : '') }}></CCardHeader>
                                     <CCardBody>
                                         <CCardText
-                                            dangerouslySetInnerHTML={{__html: highlightText(förderung.beschreibung, search)}}></CCardText>
+                                            dangerouslySetInnerHTML={{ __html: highlightText(förderung.beschreibung, selectedSearchOption === 'beschreibung' ? search : '') }}>
+                                        </CCardText>
                                         {expanded === index && (
                                             <div>
                                                 <CCardText>Betrag: {förderung.betrag} {förderung.währung || ''}</CCardText>
@@ -156,9 +156,8 @@ const App: React.FC = () => {
                                                 <CCardText>Kontakt:</CCardText>
                                                 <CCardText>Telefon: {förderung.bewerbung.kontakt.telefon}</CCardText>
                                                 <CCardText>Email: {förderung.bewerbung.kontakt.email}</CCardText>
-                                                <CCardText>Website: <a
-                                                    href={förderung.bewerbung.kontakt.website}>{förderung.bewerbung.kontakt.website}</a></CCardText>
-                                                <img src={förderung.favicon} alt={`${förderung.name} favicon`}/>
+                                                <CCardText>Website: <a href={förderung.bewerbung.kontakt.website}>{förderung.bewerbung.kontakt.website}</a></CCardText>
+                                                <img src={förderung.favicon} alt={`${förderung.name} favicon`} />
                                             </div>
                                         )}
                                     </CCardBody>
