@@ -101,27 +101,30 @@ const App: React.FC = () => {
                 <CContainer className="mt-4">
                     <CRow>
                         <CCol>
-                            <CFormInput
-                                type="text"
-                                placeholder={`Suche in ${selectedSearchOption}`}
-                                value={search}
-                                onChange={handleSearchChange}
-                            />
-                            <CFormSelect className="mt-3" value={selectedSearchOption} onChange={handleSearchOptionChange}>
-                                <option value="" disabled>Suchoption auswählen</option>
-                                <option value="institution">Institution</option>
-                                <option value="name">Name</option>
-                                <option value="beschreibung">Beschreibung</option>
-                                <option value="betrag">Betrag</option>
-                                <option value="voraussetzungen">Voraussetzungen</option>
-                                <option value="bewerbung">Bewerbung</option>
-                                <option value="frist">Frist</option>
-                                <option value="prozess">Prozess</option>
-                                <option value="kontakt">Kontakt</option>
-                                <option value="telefon">Telefon</option>
-                                <option value="email">Email</option>
-                                <option value="website">Website</option>
-                            </CFormSelect>
+                            <div className="d-flex justify-content-between mt-3">
+                                <CFormSelect value={selectedSearchOption} onChange={handleSearchOptionChange}>
+                                    <option value="" disabled>Suchoption auswählen</option>
+                                    <option value="institution">Institution</option>
+                                    <option value="name">Name</option>
+                                    <option value="beschreibung">Beschreibung</option>
+                                    <option value="betrag">Betrag</option>
+                                    <option value="voraussetzungen">Voraussetzungen</option>
+                                    <option value="bewerbung">Bewerbung</option>
+                                    <option value="frist">Frist</option>
+                                    <option value="prozess">Prozess</option>
+                                    <option value="kontakt">Kontakt</option>
+                                    <option value="telefon">Telefon</option>
+                                    <option value="email">Email</option>
+                                    <option value="website">Website</option>
+                                </CFormSelect>
+                                <CFormInput
+                                    className="ms-3"
+                                    type="text"
+                                    placeholder={`Suche in ${selectedSearchOption}`}
+                                    value={search}
+                                    onChange={handleSearchChange}
+                                />
+                            </div>
                             <CFormSelect className="mt-3" value={selectedCategory} onChange={handleCategoryChange}>
                                 <option value="">Alle Institutionen</option>
                                 {uniqueInstitutions.map((institution, index) => (
