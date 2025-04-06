@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { CNavbar, CNavbarBrand, CNavbarNav, CNavItem, CNavLink, CContainer, CRow, CCol, CCard, CCardBody, CCardHeader, CCardText, CFormInput } from '@coreui/react';
+import { CHeader, CHeaderBrand, CHeaderNav, CNavItem, CNavLink, CContainer, CRow, CCol, CCard, CCardBody, CCardHeader, CCardText, CFormInput } from '@coreui/react';
 import Sidebar from './components/Sidebar';
 import './App.css';
 
@@ -73,19 +73,19 @@ const App: React.FC = () => {
         <div className="d-flex">
             <Sidebar />
             <div className="flex-grow-1">
-                <CNavbar expand="lg" colorScheme="dark" className="bg-primary">
+                <CHeader>
                     <CContainer fluid>
-                        <CNavbarBrand href="#">Förderratgeber</CNavbarBrand>
-                        <CNavbarNav>
+                        <CHeaderBrand href="#">Förderratgeber</CHeaderBrand>
+                        <CHeaderNav>
                             <CNavItem>
                                 <CNavLink href="#">Home</CNavLink>
                             </CNavItem>
                             <CNavItem>
                                 <CNavLink href="#">Über uns</CNavLink>
                             </CNavItem>
-                        </CNavbarNav>
+                        </CHeaderNav>
                     </CContainer>
-                </CNavbar>
+                </CHeader>
 
                 <CContainer className="mt-4">
                     <CRow>
