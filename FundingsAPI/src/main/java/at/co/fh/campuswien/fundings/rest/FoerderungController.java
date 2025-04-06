@@ -2,6 +2,7 @@ package at.co.fh.campuswien.fundings.rest;
 
 import at.co.fh.campuswien.fundings.FoerderungRepository;
 import at.co.fh.campuswien.fundings.enitity.Foerderung;
+import at.co.fh.campuswien.fundings.jobs.ScrapeJob;
 import at.co.fh.campuswien.fundings.service.AiParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/foerderung")
-public class Test {
+public class FoerderungController {
     @Autowired
     FoerderungRepository foerderungRepository;
     @Autowired
@@ -30,5 +31,11 @@ public class Test {
     @GetMapping(path = "/parse")
     public Foerderung parseFoerderung(@RequestBody String targetUrl) throws JsonProcessingException {
         return aiParser.parseFoerderung(targetUrl);
+    }
+
+    @PostMapping(path = "/scrape")
+    public List<Foerderung> scrapeFoerderung() {
+        ScrapeJob scrapeJob = new ScrapeJob(aiParser, foerderungRepository);
+        return scrapeJob.scrape();
     }
 }
