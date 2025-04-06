@@ -30,8 +30,6 @@ const App: React.FC = () => {
     const [expanded, setExpanded] = useState<number | null>(null);
     const [search, setSearch] = useState<string>('');
     const [selectedCategory, setSelectedCategory] = useState<string>('');
-    const [questionnaireExpanded, setQuestionnaireExpanded] = useState<boolean>(false);
-    const [questionnaireAnswers, setQuestionnaireAnswers] = useState<{ [key: string]: string }>({});
     const [currentPage, setCurrentPage] = useState<number>(1);
     const itemsPerPage = 15;
 
@@ -53,13 +51,6 @@ const App: React.FC = () => {
         setSelectedCategory(event.target.value);
     };
 
-    const handleQuestionnaireChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setQuestionnaireAnswers({
-            ...questionnaireAnswers,
-            [event.target.name]: event.target.value
-        });
-    };
-
     const highlightText = (text: string, highlight: string) => {
         if (!highlight.trim()) {
             return text;
@@ -70,12 +61,7 @@ const App: React.FC = () => {
 
     const filteredData = data.filter(förderung =>
         förderung.beschreibung.toLowerCase().includes(search.toLowerCase()) &&
-        (selectedCategory === '' || förderung.institution === selectedCategory) &&
-        Object.keys(questionnaireAnswers).every(key =>
-            förderung.voraussetzungen.some(voraussetzung =>
-                voraussetzung.toLowerCase().includes(questionnaireAnswers[key].toLowerCase())
-            )
-        )
+        (selectedCategory === '' || förderung.institution === selectedCategory)
     );
 
     const indexOfLastItem = currentPage * itemsPerPage;
@@ -107,8 +93,6 @@ const App: React.FC = () => {
                 <CContainer className="mt-4">
                     <CRow>
                         <CCol>
-                            <h3>Willkommen zum Förderratgeber!</h3>
-                            <p>Liste der Förderungen</p>
                             <CFormInput
                                 type="text"
                                 placeholder="Suche nach Beschreibung"
@@ -121,33 +105,16 @@ const App: React.FC = () => {
                                     <option key={index} value={institution}>{institution}</option>
                                 ))}
                             </CFormSelect>
-                            <div className="questionnaire mt-3">
-                                <h4 onClick={() => setQuestionnaireExpanded(!questionnaireExpanded)} style={{ cursor: 'pointer' }}>
-                                    Fragebogen {questionnaireExpanded ? '▲' : '▼'}
-                                </h4>
-                                {questionnaireExpanded && (
-                                    <div>
-                                        <CFormInput
-                                            type="text"
-                                            name="voraussetzung1"
-                                            placeholder="Voraussetzung 1"
-                                            onChange={handleQuestionnaireChange}
-                                            className="mb-2"
-                                        />
-                                        <CFormInput
-                                            type="text"
-                                            name="voraussetzung2"
-                                            placeholder="Voraussetzung 2"
-                                            onChange={handleQuestionnaireChange}
-                                        />
-                                    </div>
-                                )}
-                            </div>
+                            <hr className="my-4"/>
+                            <h3 className="title">Liste der Förderungen</h3>
+                            <hr className="my-4"/>
                             {currentItems.map((förderung, index) => (
-                                <CCard key={index} className="mt-3" onClick={() => toggleExpand(index)} style={{ cursor: 'pointer' }}>
+                                <CCard key={index} className="mt-3" onClick={() => toggleExpand(index)}
+                                       style={{cursor: 'pointer'}}>
                                     <CCardHeader>{förderung.name}</CCardHeader>
                                     <CCardBody>
-                                        <CCardText dangerouslySetInnerHTML={{ __html: highlightText(förderung.beschreibung, search) }}></CCardText>
+                                        <CCardText
+                                            dangerouslySetInnerHTML={{__html: highlightText(förderung.beschreibung, search)}}></CCardText>
                                         {expanded === index && (
                                             <div>
                                                 <CCardText>Betrag: {förderung.betrag} {förderung.währung || ''}</CCardText>
@@ -167,21 +134,25 @@ const App: React.FC = () => {
                                                 <CCardText>Kontakt:</CCardText>
                                                 <CCardText>Telefon: {förderung.bewerbung.kontakt.telefon}</CCardText>
                                                 <CCardText>Email: {förderung.bewerbung.kontakt.email}</CCardText>
-                                                <CCardText>Website: <a href={förderung.bewerbung.kontakt.website}>{förderung.bewerbung.kontakt.website}</a></CCardText>
-                                                <img src={förderung.favicon} alt={`${förderung.name} favicon`} />
+                                                <CCardText>Website: <a
+                                                    href={förderung.bewerbung.kontakt.website}>{förderung.bewerbung.kontakt.website}</a></CCardText>
+                                                <img src={förderung.favicon} alt={`${förderung.name} favicon`}/>
                                             </div>
                                         )}
                                     </CCardBody>
                                 </CCard>
                             ))}
                             <CPagination className="mt-3">
-                                <CPaginationItem disabled={currentPage === 1} onClick={() => setCurrentPage(currentPage - 1)}>Previous</CPaginationItem>
+                                <CPaginationItem disabled={currentPage === 1}
+                                                 onClick={() => setCurrentPage(currentPage - 1)}>Previous</CPaginationItem>
                                 {[...Array(totalPages)].map((_, i) => (
-                                    <CPaginationItem key={i} active={i + 1 === currentPage} onClick={() => setCurrentPage(i + 1)}>
+                                    <CPaginationItem key={i} active={i + 1 === currentPage}
+                                                     onClick={() => setCurrentPage(i + 1)}>
                                         {i + 1}
                                     </CPaginationItem>
                                 ))}
-                                <CPaginationItem disabled={currentPage === totalPages} onClick={() => setCurrentPage(currentPage + 1)}>Next</CPaginationItem>
+                                <CPaginationItem disabled={currentPage === totalPages}
+                                                 onClick={() => setCurrentPage(currentPage + 1)}>Next</CPaginationItem>
                             </CPagination>
                         </CCol>
                     </CRow>
