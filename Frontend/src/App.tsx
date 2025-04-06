@@ -135,7 +135,7 @@ const App: React.FC = () => {
                                 />
                             </div>
                             <div className="d-flex justify-content-between mt-3">
-                                <CFormSelect className="me-3" value={selectedCategory} onChange={handleCategoryChange}>
+                                <CFormSelect value={selectedCategory} onChange={handleCategoryChange}>
                                     <option value="">Alle Institutionen</option>
                                     {uniqueInstitutions.map((institution, index) => (
                                         <option key={index} value={institution}>{institution}</option>
