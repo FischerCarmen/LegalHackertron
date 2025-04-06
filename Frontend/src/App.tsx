@@ -119,7 +119,7 @@ const App: React.FC = () => {
                         </div>
                         {filteredData.map((förderung, index) => (
                             <CCard key={index} className="mt-3" onClick={() => toggleExpand(index)} style={{ cursor: 'pointer' }}>
-                                <CCardHeader>{förderung.name}</CCardHeader>
+                                <CCardHeader>{förderung.institution} - {förderung.name}</CCardHeader>
                                 <CCardBody>
                                     <CCardText dangerouslySetInnerHTML={{ __html: highlightText(förderung.beschreibung, search) }}></CCardText>
                                     {expanded === index && (
