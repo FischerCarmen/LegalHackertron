@@ -20,6 +20,7 @@ interface Förderung {
     beschreibung: string;
     betrag: string;
     währung: string | null;
+    kategorie: string;
     voraussetzungen: string[];
     bewerbung: Bewerbung;
     favicon: string;
@@ -32,6 +33,7 @@ const App: React.FC = () => {
     const [search, setSearch] = useState<string>('');
     const [selectedCategory, setSelectedCategory] = useState<string>('');
     const [selectedSearchOption, setSelectedSearchOption] = useState<string>('');
+    const [selectedKategorie, setSelectedKategorie] = useState<string>('');
     const [currentPage, setCurrentPage] = useState<number>(1);
     const itemsPerPage = 15;
 
@@ -65,11 +67,16 @@ const App: React.FC = () => {
         return text.replace(regex, (match) => `<span class="highlight">${match}</span>`);
     };
 
+    const handleKategorieChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setSelectedKategorie(event.target.value);
+    };
+
     const filteredData = data.filter(förderung => {
         const searchValue = search.toLowerCase();
         const searchField = selectedSearchOption.toLowerCase();
         const fieldValue = (förderung as any)[searchField]?.toString().toLowerCase() || '';
-        return fieldValue.includes(searchValue) && (selectedCategory === '' || förderung.institution === selectedCategory);
+        return fieldValue.includes(searchValue) && (selectedCategory === '' || förderung.institution === selectedCategory) &&
+        (selectedKategorie === '' || förderung.kategorie === selectedKategorie);
     });
 
     const indexOfLastItem = currentPage * itemsPerPage;
@@ -79,6 +86,8 @@ const App: React.FC = () => {
     const totalPages = Math.ceil(filteredData.length / itemsPerPage);
 
     const uniqueInstitutions = Array.from(new Set(data.map(förderung => förderung.institution))).sort();
+
+    const uniqueKategorien = Array.from(new Set(data.map(förderung => förderung.kategorie))).sort();
 
     return (
         <div className="d-flex">
@@ -125,24 +134,36 @@ const App: React.FC = () => {
                                     onChange={handleSearchChange}
                                 />
                             </div>
-                            <CFormSelect className="mt-3" value={selectedCategory} onChange={handleCategoryChange}>
-                                <option value="">Alle Institutionen</option>
-                                {uniqueInstitutions.map((institution, index) => (
-                                    <option key={index} value={institution}>{institution}</option>
-                                ))}
-                            </CFormSelect>
+                            <div className="d-flex justify-content-between mt-3">
+                                <CFormSelect className="me-3" value={selectedCategory} onChange={handleCategoryChange}>
+                                    <option value="">Alle Institutionen</option>
+                                    {uniqueInstitutions.map((institution, index) => (
+                                        <option key={index} value={institution}>{institution}</option>
+                                    ))}
+                                </CFormSelect>
+                                <CFormSelect className="ms-3" value={selectedKategorie}
+                                             onChange={handleKategorieChange}>
+                                    <option value="">Alle Kategorien</option>
+                                    {uniqueKategorien.map((kategorie, index) => (
+                                        <option key={index} value={kategorie}>{kategorie}</option>
+                                    ))}
+                                </CFormSelect>
+                            </div>
                             <hr className="my-4"/>
                             <h3 className="title">Liste der Förderungen</h3>
                             <hr className="my-4"/>
                             {currentItems.map((förderung, index) => (
-                                <CCard key={index} className="mt-3" onClick={() => toggleExpand(index)} style={{ cursor: 'pointer' }}>
-                                    <CCardHeader dangerouslySetInnerHTML={{ __html: highlightText(förderung.institution +' - ' + förderung.name, selectedSearchOption === 'name' ? search : '') }}></CCardHeader>
+                                <CCard key={index} className="mt-3" onClick={() => toggleExpand(index)}
+                                       style={{cursor: 'pointer'}}>
+                                    <CCardHeader
+                                        dangerouslySetInnerHTML={{__html: highlightText(förderung.institution + ' - ' + förderung.name, selectedSearchOption === 'name' ? search : '')}}></CCardHeader>
                                     <CCardBody>
-                                        <CCardText
+                                    <CCardText
                                             dangerouslySetInnerHTML={{ __html: highlightText(förderung.beschreibung, selectedSearchOption === 'beschreibung' ? search : '') }}>
                                         </CCardText>
                                         {expanded === index && (
                                             <div>
+                                                <CCardText>Kategorie: {förderung.kategorie}</CCardText> {/* Display kategorie */}
                                                 <CCardText>Betrag: {förderung.betrag} {förderung.währung || ''}</CCardText>
                                                 <CCardText>Voraussetzungen:</CCardText>
                                                 <ul>
