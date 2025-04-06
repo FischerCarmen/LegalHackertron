@@ -7,6 +7,7 @@ import {
     CNavTitle,
 } from '@coreui/react'
 import { PiStudent } from "react-icons/pi";
+import './Sidebar.css';
 
 
 const Sidebar = () => {

@@ -7,19 +7,6 @@
     --watermelon: #ff667d;
 }
 
-.highlight {
-    background-color: #ff667d;
-}
-
-.d-flex {
-    display: flex;
-}
-
-.flex-grow-1 {
-    flex-grow: 1;
-}
-
 .body {
-    background-color: #ffd4b8;
-
+    background-color: #a8e6cf
 }
