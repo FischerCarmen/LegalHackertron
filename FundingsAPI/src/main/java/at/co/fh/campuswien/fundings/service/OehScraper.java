@@ -17,7 +17,6 @@ public class OehScraper {
                 // Tabelle finden
                 Elements rows = document.select("table tr");
 
-                System.out.println("Links aus der dritten Spalte:");
                 for (Element row : rows) {
                     Elements columns = row.select("td");
                     if (columns.size() >= 3) {
