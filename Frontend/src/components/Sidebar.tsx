@@ -7,13 +7,15 @@ import {
     CNavTitle,
 } from '@coreui/react'
 import { PiStudent } from "react-icons/pi";
+import { CgSupport } from "react-icons/cg";
 
 
 const Sidebar = () => {
     return (
         <CSidebar className="border-end" colorScheme="dark">
             <CSidebarHeader className="border-bottom">
-                <CSidebarBrand>Förderratgeber</CSidebarBrand>
+                <CSidebarBrand><CgSupport style={{ marginRight: '8px' }} />
+                    Förderratgeber</CSidebarBrand>
             </CSidebarHeader>
             <CSidebarNav>
                 <CNavTitle>Förderungen</CNavTitle>

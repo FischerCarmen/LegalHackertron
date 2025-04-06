@@ -75,10 +75,10 @@ const App: React.FC = () => {
             <div className="flex-grow-1">
                 <CHeader>
                     <CContainer fluid>
-                        <CHeaderBrand href="#">Förderratgeber</CHeaderBrand>
+                        <CHeaderBrand href="#">Home</CHeaderBrand>
                         <CHeaderNav>
                             <CNavItem>
-                                <CNavLink href="#">Home</CNavLink>
+                                <CNavLink href="#">Kontakt</CNavLink>
                             </CNavItem>
                             <CNavItem>
                                 <CNavLink href="#">Über uns</CNavLink>
