@@ -13,7 +13,7 @@ public class Foerderung {
     private String institution;
 
     private String name;
-
+    @Column(length = 1000)
     private String beschreibung;
 
     private String betrag;

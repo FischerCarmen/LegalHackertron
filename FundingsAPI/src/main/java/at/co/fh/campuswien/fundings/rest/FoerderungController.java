@@ -32,7 +32,7 @@ public class FoerderungController {
     }
 
     @GetMapping(path = "/parse")
-    public Foerderung parseFoerderung(@RequestBody String targetUrl) throws JsonProcessingException {
+    public Foerderung[] parseFoerderung(@RequestBody String targetUrl) throws JsonProcessingException {
         return aiParser.parseFoerderung(targetUrl);
     }
 
@@ -48,9 +48,9 @@ public class FoerderungController {
         if (existingFoerderung.isPresent()) {
             Foerderung foerderung = existingFoerderung.get();
             var updated = this.aiParser.parseFoerderung(foerderung.getScrapeUrl() ,additionalInformation);
-            updated.setId(foerderung.getId());
-            foerderungRepository.save(updated);
-            return updated;
+            updated[0].setId(foerderung.getId());
+            foerderungRepository.save(updated[0]);
+            return updated[0];
         }else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }

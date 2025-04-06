@@ -28,17 +28,24 @@ public class ScrapeJob {
         List<String> links = OehScraper.scrape("https://www.studienplattform.at/api/grantsout.php");
         List<Foerderung> foerderungs = new ArrayList<>();
         for (String link : links) {
-            Foerderung newEl;
+            Foerderung[] newEls;
             try{
-                newEl = aiParser.parseFoerderung(link);
-                newEl.setScrapeUrl(link);
-                foerderungRepository.save(newEl);
-                log.info("New foerderung: " + newEl.getName());
+                newEls = aiParser.parseFoerderung(link);
+                for(Foerderung foerderung : newEls){
+                    try {
+                        foerderung.setScrapeUrl(link);
+                        foerderungRepository.save(foerderung);
+                        log.info("New foerderung: " + foerderung.getName());
+                    } catch (Exception e) {
+                        log.info("Could not scrape foerderung: " + foerderung.getName());
+                    }
+                }
+
             } catch (Exception e){
                 log.info("Scrape failed: " + link);
                 continue;
             }
-            foerderungs.add(newEl);
+            foerderungs.addAll(List.of(newEls));
         }
         return foerderungs;
     }
