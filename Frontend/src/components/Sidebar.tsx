@@ -20,7 +20,7 @@ const Sidebar = () => {
                 <CNavTitle>Förderungen</CNavTitle>
                 <CNavItem href="#">
                     <PiStudent style={{ marginRight: '8px' }} />
-                    Studenten
+                    Studentenförderung
                 </CNavItem>
             </CSidebarNav>
         </CSidebar>
