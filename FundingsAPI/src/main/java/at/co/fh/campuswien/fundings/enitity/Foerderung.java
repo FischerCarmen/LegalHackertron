@@ -20,6 +20,8 @@ public class Foerderung {
 
     private String waehrung;
 
+    private String kategorie;
+
     @ElementCollection
     private List<String> voraussetzungen;
 
@@ -108,6 +110,14 @@ public class Foerderung {
 
     public void setScrapeUrl(String scrapeUrl) {
         this.scrapeUrl = scrapeUrl;
+    }
+
+    public String getKategorie() {
+        return kategorie;
+    }
+
+    public void setKategorie(String kategorie) {
+        this.kategorie = kategorie;
     }
 }
 
