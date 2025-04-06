@@ -72,7 +72,7 @@ const App: React.FC = () => {
         <div>
             <CNavbar expand="lg" colorScheme="dark" className="bg-primary">
                 <CContainer fluid>
-                    <CNavbarBrand href="#">Förderungrechner</CNavbarBrand>
+                    <CNavbarBrand href="#">Förderratgeber</CNavbarBrand>
                     <CNavbarNav>
                         <CNavItem>
                             <CNavLink href="#">Home</CNavLink>
@@ -87,7 +87,7 @@ const App: React.FC = () => {
             <CContainer className="mt-4">
                 <CRow>
                     <CCol>
-                        <h3>Willkommen zur Förderungsrechner!</h3>
+                        <h3>Willkommen zum Förderratgeber!</h3>
                         <p>Liste der Förderungen</p>
                         <CFormInput
                             type="text"
