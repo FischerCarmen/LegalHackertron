@@ -31,6 +31,7 @@ public class ScrapeJob {
             Foerderung newEl;
             try{
                 newEl = aiParser.parseFoerderung(link);
+                newEl.setScrapeUrl(link);
                 foerderungRepository.save(newEl);
                 log.info("New foerderung: " + newEl.getName());
             } catch (Exception e){

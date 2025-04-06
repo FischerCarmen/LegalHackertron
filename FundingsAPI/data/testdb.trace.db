@@ -1,16 +1,20 @@
-2025-04-06 09:03:44.958011+02:00 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLDataException: Wert zu groß / lang für Feld "BESCHREIBUNG CHARACTER VARYING(255)": "U&'Der Eurasia Young Scholars Award f\\00f6rdert herausragende Nachwuchswissensch... (296)"
-Value too long for column "BESCHREIBUNG CHARACTER VARYING(255)": "U&'Der Eurasia Young Scholars Award f\\00f6rdert herausragende Nachwuchswissensch... (296)"; SQL statement:
-insert into foerderung (beschreibung,betrag,frist,email,telefon,website,favicon,institution,name,waehrung,id) values (?,?,?,?,?,?,?,?,?,?,default) [22001-232]
-2025-04-06 09:20:20.321815+02:00 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLDataException: Wert zu groß / lang für Feld "BESCHREIBUNG CHARACTER VARYING(255)": "U&'Das Leistungsstipendium ist eine finanzielle Unterst\\00fctzung f\\00fcr Studie... (283)"
-Value too long for column "BESCHREIBUNG CHARACTER VARYING(255)": "U&'Das Leistungsstipendium ist eine finanzielle Unterst\\00fctzung f\\00fcr Studie... (283)"; SQL statement:
-insert into foerderung (beschreibung,betrag,frist,email,telefon,website,favicon,institution,name,waehrung,id) values (?,?,?,?,?,?,?,?,?,?,default) [22001-232]
-2025-04-06 09:34:42.336159+02:00 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLDataException: Wert zu groß / lang für Feld "BESCHREIBUNG CHARACTER VARYING(255)": "U&'Das Fellowship Programm des IFK richtet sich an Forschende, die sich intensiv... (267)"
-Value too long for column "BESCHREIBUNG CHARACTER VARYING(255)": "U&'Das Fellowship Programm des IFK richtet sich an Forschende, die sich intensiv... (267)"; SQL statement:
-insert into foerderung (beschreibung,betrag,frist,email,telefon,website,favicon,institution,name,waehrung,id) values (?,?,?,?,?,?,?,?,?,?,default) [22001-232]
-2025-04-06 09:36:20.063533+02:00 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLDataException: Wert zu groß / lang für Feld "BESCHREIBUNG CHARACTER VARYING(255)": "U&'Das Medizinstipendium des Wiener Gesundheitsverbunds richtet sich an internat... (335)"
-Value too long for column "BESCHREIBUNG CHARACTER VARYING(255)": "U&'Das Medizinstipendium des Wiener Gesundheitsverbunds richtet sich an internat... (335)"; SQL statement:
-insert into foerderung (beschreibung,betrag,frist,email,telefon,website,favicon,institution,name,waehrung,id) values (?,?,?,?,?,?,?,?,?,?,default) [22001-232]
+2025-04-06 12:05:29.096678+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Wert zu groß / lang für Feld "BESCHREIBUNG CHARACTER VARYING(255)": "U&'Der Eurasia Young Scholars Award f\\00f6rdert herausragende Nachwuchswissensch... (304)"
+Value too long for column "BESCHREIBUNG CHARACTER VARYING(255)": "U&'Der Eurasia Young Scholars Award f\\00f6rdert herausragende Nachwuchswissensch... (304)"; SQL statement:
+insert into foerderung (beschreibung,betrag,frist,email,telefon,website,favicon,institution,name,scrape_url,waehrung,id) values (?,?,?,?,?,?,?,?,?,?,?,default) [22001-232]
+2025-04-06 12:15:09.726597+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Wert zu groß / lang für Feld "BESCHREIBUNG CHARACTER VARYING(255)": "U&'Der Wissenschaftspreis des Landes Nieder\\00f6sterreich wird j\\00e4hrlich in d... (368)"
+Value too long for column "BESCHREIBUNG CHARACTER VARYING(255)": "U&'Der Wissenschaftspreis des Landes Nieder\\00f6sterreich wird j\\00e4hrlich in d... (368)"; SQL statement:
+insert into foerderung (beschreibung,betrag,frist,email,telefon,website,favicon,institution,name,scrape_url,waehrung,id) values (?,?,?,?,?,?,?,?,?,?,?,default) [22001-232]
+2025-04-06 12:17:28.640824+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Wert zu groß / lang für Feld "BESCHREIBUNG CHARACTER VARYING(255)": "U&'Die Errichtung von Pilotregionen zur Entwicklung zukunftsf\\00e4higer Regionen... (296)"
+Value too long for column "BESCHREIBUNG CHARACTER VARYING(255)": "U&'Die Errichtung von Pilotregionen zur Entwicklung zukunftsf\\00e4higer Regionen... (296)"; SQL statement:
+insert into foerderung (beschreibung,betrag,frist,email,telefon,website,favicon,institution,name,scrape_url,waehrung,id) values (?,?,?,?,?,?,?,?,?,?,?,default) [22001-232]
+2025-04-06 12:18:22.221687+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Wert zu groß / lang für Feld "BESCHREIBUNG CHARACTER VARYING(255)": "U&'Die Medizinische Universit\\00e4t Graz und das Land Steiermark starten ein neu... (311)"
+Value too long for column "BESCHREIBUNG CHARACTER VARYING(255)": "U&'Die Medizinische Universit\\00e4t Graz und das Land Steiermark starten ein neu... (311)"; SQL statement:
+insert into foerderung (beschreibung,betrag,frist,email,telefon,website,favicon,institution,name,scrape_url,waehrung,id) values (?,?,?,?,?,?,?,?,?,?,?,default) [22001-232]
+2025-04-06 12:27:48.746804+02:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLDataException: Wert zu groß / lang für Feld "VORAUSSETZUNGEN CHARACTER VARYING(255)": "U&'Recipients of funding must demonstrate a strong interest in one of the master... (260)"
+Value too long for column "VORAUSSETZUNGEN CHARACTER VARYING(255)": "U&'Recipients of funding must demonstrate a strong interest in one of the master... (260)"; SQL statement:
+insert into foerderung_voraussetzungen (foerderung_id,voraussetzungen) values (?,?) [22001-232]

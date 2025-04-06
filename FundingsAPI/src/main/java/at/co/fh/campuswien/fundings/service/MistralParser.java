@@ -17,14 +17,20 @@ import java.util.Map;
 @Service
 public class MistralParser implements AiParser {
     static private final String MISTRAL_ADDRESS = "https://api.mistral.ai/v1/chat/completions";
-    static private final String MESSAGE_TEMPLATE = "Schreibe die informationen aus der website, inkludiere die url des favicons der website, nur das json keine weiteren texte: %s in folgendem datenmodell zusammen: { \"institution\": \"Name der Institution\", \"name\": \"Name der F\u00F6rderung\", \"beschreibung\": \"Kurze Beschreibung der F\u00F6rderung\", \"betrag\": \"F\u00F6rderh\u00F6he (falls zutreffend)\", \"waehrung\": \"W\u00E4hrungseinheit\", \"voraussetzungen\": [ \"Voraussetzung 1\", \"Voraussetzung 2\" ], \"bewerbung\": { \"frist\": \"\", \"prozess\": [ \"Schritt 1 der Bewerbung\", \"Schritt 2 der Bewerbung\" ], \"kontakt\": { \"telefon\": \"Telefonnummer\", \"email\": \"E-Mail-Adresse\", \"website\": \"Webseiten-Link\" } }, \"favicon\": \"path/to/image\" }";
+    static private final String MESSAGE_TEMPLATE = "Schreibe die informationen aus der website, inkludiere die url des favicons der website, nur das json keine weiteren texte: %s in folgendem datenmodell zusammen: { \"institution\": \"Name der Institution\", \"name\": \"Name der F\u00F6rderung\", \"beschreibung\": \"Kurze Beschreibung der F\u00F6rderung\", \"betrag\": \"F\u00F6rderh\u00F6he (falls zutreffend)\", \"waehrung\": \"W\u00E4hrungseinheit\", \"voraussetzungen\": [ \"Voraussetzung 1\", \"Voraussetzung 2\" ], \"bewerbung\": { \"frist\": \"\", \"prozess\": [ \"Schritt 1 der Bewerbung\", \"Schritt 2 der Bewerbung\" ], \"kontakt\": { \"telefon\": \"Telefonnummer\", \"email\": \"E-Mail-Adresse\", \"website\": \"Webseiten-Link\" } }, \"favicon\": \"path/to/image\" }, %s";
 
     private final RestTemplate restTemplate;
 
     public MistralParser() {
         this.restTemplate = new RestTemplate();
     }
+
+    @Override
     public Foerderung parseFoerderung(String targetUrl) throws JsonProcessingException {
+        return parseFoerderung(targetUrl, "");
+    }
+
+    public Foerderung parseFoerderung(String targetUrl, String additionalInformation) throws JsonProcessingException {
         String url = UriComponentsBuilder.fromHttpUrl(MISTRAL_ADDRESS).toUriString();
 
         Map<String, Object> payload = new HashMap<>();
@@ -32,7 +38,7 @@ public class MistralParser implements AiParser {
 
         Map<String, String> message = new HashMap<>();
         message.put("role", "user");
-        message.put("content", String.format(MESSAGE_TEMPLATE, targetUrl));
+        message.put("content", String.format(MESSAGE_TEMPLATE, targetUrl, additionalInformation));
 
         HttpHeaders headers = new HttpHeaders();
         String authToken = System.getenv("MISTRAL_BEARER");
