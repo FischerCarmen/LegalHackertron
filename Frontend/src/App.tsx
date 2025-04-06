@@ -23,6 +23,7 @@ interface Förderung {
     voraussetzungen: string[];
     bewerbung: Bewerbung;
     favicon: string;
+    scrapeUrl: string;
 }
 
 const App: React.FC = () => {
@@ -132,7 +133,7 @@ const App: React.FC = () => {
                             <hr className="my-4"/>
                             {currentItems.map((förderung, index) => (
                                 <CCard key={index} className="mt-3" onClick={() => toggleExpand(index)} style={{ cursor: 'pointer' }}>
-                                    <CCardHeader dangerouslySetInnerHTML={{ __html: highlightText(förderung.name, selectedSearchOption === 'name' ? search : '') }}></CCardHeader>
+                                    <CCardHeader dangerouslySetInnerHTML={{ __html: highlightText(förderung.institution +' - ' + förderung.name, selectedSearchOption === 'name' ? search : '') }}></CCardHeader>
                                     <CCardBody>
                                         <CCardText
                                             dangerouslySetInnerHTML={{ __html: highlightText(förderung.beschreibung, selectedSearchOption === 'beschreibung' ? search : '') }}>
@@ -158,6 +159,7 @@ const App: React.FC = () => {
                                                 <CCardText>Email: {förderung.bewerbung.kontakt.email}</CCardText>
                                                 <CCardText>Website: <a href={förderung.bewerbung.kontakt.website}>{förderung.bewerbung.kontakt.website}</a></CCardText>
                                                 <img src={förderung.favicon} alt={`${förderung.name} favicon`} />
+                                                <CCardText>Datenquelle: <a href={förderung.scrapeUrl}>{förderung.scrapeUrl}</a></CCardText>
                                             </div>
                                         )}
                                     </CCardBody>

@@ -27,6 +27,7 @@ public class Foerderung {
     private Bewerbung bewerbung;
 
     private String favicon;
+    private String scrapeUrl;
 
     // Getter und Setter
     public Long getId() {
@@ -99,6 +100,14 @@ public class Foerderung {
 
     public void setFavicon(String favicon) {
         this.favicon = favicon;
+    }
+
+    public String getScrapeUrl() {
+        return scrapeUrl;
+    }
+
+    public void setScrapeUrl(String scrapeUrl) {
+        this.scrapeUrl = scrapeUrl;
     }
 }
 

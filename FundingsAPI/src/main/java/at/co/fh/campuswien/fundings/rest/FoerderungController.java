@@ -6,9 +6,12 @@ import at.co.fh.campuswien.fundings.jobs.ScrapeJob;
 import at.co.fh.campuswien.fundings.service.AiParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/foerderung")
@@ -37,5 +40,19 @@ public class FoerderungController {
     public List<Foerderung> scrapeFoerderung() {
         ScrapeJob scrapeJob = new ScrapeJob(aiParser, foerderungRepository);
         return scrapeJob.scrape();
+    }
+
+    @PutMapping(path="/{id}")
+    public Foerderung put(@RequestBody String additionalInformation, @PathVariable("id")long id) throws JsonProcessingException {
+        Optional<Foerderung> existingFoerderung = foerderungRepository.findById(id);
+        if (existingFoerderung.isPresent()) {
+            Foerderung foerderung = existingFoerderung.get();
+            var updated = this.aiParser.parseFoerderung(foerderung.getScrapeUrl() ,additionalInformation);
+            updated.setId(foerderung.getId());
+            foerderungRepository.save(updated);
+            return updated;
+        }else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
     }
 }
