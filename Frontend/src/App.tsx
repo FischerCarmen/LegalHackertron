@@ -30,6 +30,7 @@ const App: React.FC = () => {
     const [expanded, setExpanded] = useState<number | null>(null);
     const [search, setSearch] = useState<string>('');
     const [selectedCategory, setSelectedCategory] = useState<string>('');
+    const [selectedSearchOption, setSelectedSearchOption] = useState<string>('beschreibung');
     const [currentPage, setCurrentPage] = useState<number>(1);
     const itemsPerPage = 15;
 
@@ -51,6 +52,10 @@ const App: React.FC = () => {
         setSelectedCategory(event.target.value);
     };
 
+    const handleSearchOptionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setSelectedSearchOption(event.target.value);
+    };
+
     const highlightText = (text: string, highlight: string) => {
         if (!highlight.trim()) {
             return text;
@@ -59,10 +64,12 @@ const App: React.FC = () => {
         return text.replace(regex, (match) => `<span class="highlight">${match}</span>`);
     };
 
-    const filteredData = data.filter(förderung =>
-        förderung.beschreibung.toLowerCase().includes(search.toLowerCase()) &&
-        (selectedCategory === '' || förderung.institution === selectedCategory)
-    );
+    const filteredData = data.filter(förderung => {
+        const searchValue = search.toLowerCase();
+        const searchField = selectedSearchOption.toLowerCase();
+        const fieldValue = (förderung as any)[searchField]?.toString().toLowerCase() || '';
+        return fieldValue.includes(searchValue) && (selectedCategory === '' || förderung.institution === selectedCategory);
+    });
 
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -95,10 +102,25 @@ const App: React.FC = () => {
                         <CCol>
                             <CFormInput
                                 type="text"
-                                placeholder="Suche nach Beschreibung"
+                                placeholder={`Suche in ${selectedSearchOption}`}
                                 value={search}
                                 onChange={handleSearchChange}
                             />
+                            <CFormSelect className="mt-3" value={selectedSearchOption} onChange={handleSearchOptionChange}>
+                                <option value="institution">Institution</option>
+                                <option value="name">Name</option>
+                                <option value="beschreibung">Beschreibung</option>
+                                <option value="betrag">Betrag</option>
+                                <option value="währung">Währung</option>
+                                <option value="voraussetzungen">Voraussetzungen</option>
+                                <option value="bewerbung">Bewerbung</option>
+                                <option value="frist">Frist</option>
+                                <option value="prozess">Prozess</option>
+                                <option value="kontakt">Kontakt</option>
+                                <option value="telefon">Telefon</option>
+                                <option value="email">Email</option>
+                                <option value="website">Website</option>
+                            </CFormSelect>
                             <CFormSelect className="mt-3" value={selectedCategory} onChange={handleCategoryChange}>
                                 <option value="">Alle Institutionen</option>
                                 {uniqueInstitutions.map((institution, index) => (
