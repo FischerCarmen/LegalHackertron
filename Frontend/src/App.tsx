@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { CHeader, CHeaderBrand, CHeaderNav, CNavItem, CNavLink, CContainer, CRow, CCol, CCard, CCardBody, CCardHeader, CCardText, CFormInput, CPagination, CPaginationItem } from '@coreui/react';
+import { CHeader, CHeaderBrand, CHeaderNav, CNavItem, CNavLink, CContainer, CRow, CCol, CCard, CCardBody, CCardHeader, CCardText, CFormInput, CFormSelect, CPagination, CPaginationItem } from '@coreui/react';
 import Sidebar from './components/Sidebar';
 import './App.css';
 
@@ -14,6 +14,7 @@ interface Bewerbung {
 }
 
 interface Förderung {
+    id: number;
     institution: string;
     name: string;
     beschreibung: string;
@@ -28,6 +29,7 @@ const App: React.FC = () => {
     const [data, setData] = useState<Förderung[]>([]);
     const [expanded, setExpanded] = useState<number | null>(null);
     const [search, setSearch] = useState<string>('');
+    const [selectedCategory, setSelectedCategory] = useState<string>('');
     const [questionnaireExpanded, setQuestionnaireExpanded] = useState<boolean>(false);
     const [questionnaireAnswers, setQuestionnaireAnswers] = useState<{ [key: string]: string }>({});
     const [currentPage, setCurrentPage] = useState<number>(1);
@@ -47,6 +49,10 @@ const App: React.FC = () => {
         setSearch(event.target.value);
     };
 
+    const handleCategoryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setSelectedCategory(event.target.value);
+    };
+
     const handleQuestionnaireChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setQuestionnaireAnswers({
             ...questionnaireAnswers,
@@ -64,6 +70,7 @@ const App: React.FC = () => {
 
     const filteredData = data.filter(förderung =>
         förderung.beschreibung.toLowerCase().includes(search.toLowerCase()) &&
+        (selectedCategory === '' || förderung.institution === selectedCategory) &&
         Object.keys(questionnaireAnswers).every(key =>
             förderung.voraussetzungen.some(voraussetzung =>
                 voraussetzung.toLowerCase().includes(questionnaireAnswers[key].toLowerCase())
@@ -76,6 +83,8 @@ const App: React.FC = () => {
     const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
 
     const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+
+    const uniqueInstitutions = Array.from(new Set(data.map(förderung => förderung.institution))).sort();
 
     return (
         <div className="d-flex">
@@ -106,6 +115,12 @@ const App: React.FC = () => {
                                 value={search}
                                 onChange={handleSearchChange}
                             />
+                            <CFormSelect className="mt-3" value={selectedCategory} onChange={handleCategoryChange}>
+                                <option value="">Alle Institutionen</option>
+                                {uniqueInstitutions.map((institution, index) => (
+                                    <option key={index} value={institution}>{institution}</option>
+                                ))}
+                            </CFormSelect>
                             <div className="questionnaire mt-3">
                                 <h4 onClick={() => setQuestionnaireExpanded(!questionnaireExpanded)} style={{ cursor: 'pointer' }}>
                                     Fragebogen {questionnaireExpanded ? '▲' : '▼'}

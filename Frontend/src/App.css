@@ -9,3 +9,8 @@
 .flex-grow-1 {
     flex-grow: 1;
 }
+
+.sidebar {
+    min-height: 100vh;
+    overflow-y: auto;
+}
