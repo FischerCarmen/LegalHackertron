@@ -30,7 +30,7 @@ const App: React.FC = () => {
     const [expanded, setExpanded] = useState<number | null>(null);
     const [search, setSearch] = useState<string>('');
     const [selectedCategory, setSelectedCategory] = useState<string>('');
-    const [selectedSearchOption, setSelectedSearchOption] = useState<string>('beschreibung');
+    const [selectedSearchOption, setSelectedSearchOption] = useState<string>('');
     const [currentPage, setCurrentPage] = useState<number>(1);
     const itemsPerPage = 15;
 
@@ -107,11 +107,11 @@ const App: React.FC = () => {
                                 onChange={handleSearchChange}
                             />
                             <CFormSelect className="mt-3" value={selectedSearchOption} onChange={handleSearchOptionChange}>
+                                <option value="" disabled>Suchoption auswählen</option>
                                 <option value="institution">Institution</option>
                                 <option value="name">Name</option>
                                 <option value="beschreibung">Beschreibung</option>
                                 <option value="betrag">Betrag</option>
-                                <option value="währung">Währung</option>
                                 <option value="voraussetzungen">Voraussetzungen</option>
                                 <option value="bewerbung">Bewerbung</option>
                                 <option value="frist">Frist</option>
