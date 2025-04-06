@@ -9,10 +9,9 @@ import {
 import { PiStudent } from "react-icons/pi";
 import { CgSupport } from "react-icons/cg";
 
-
 const Sidebar = () => {
     return (
-        <CSidebar className="border-end" colorScheme="dark">
+        <CSidebar className="border-end sidebar" colorScheme="dark">
             <CSidebarHeader className="border-bottom">
                 <CSidebarBrand><CgSupport style={{ marginRight: '8px' }} />
                     Förderratgeber</CSidebarBrand>

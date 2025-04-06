@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { CHeader, CHeaderBrand, CHeaderNav, CNavItem, CNavLink, CContainer, CRow, CCol, CCard, CCardBody, CCardHeader, CCardText, CFormInput } from '@coreui/react';
+import { CHeader, CHeaderBrand, CHeaderNav, CNavItem, CNavLink, CContainer, CRow, CCol, CCard, CCardBody, CCardHeader, CCardText, CFormInput, CPagination, CPaginationItem } from '@coreui/react';
 import Sidebar from './components/Sidebar';
 import './App.css';
 
@@ -30,6 +30,8 @@ const App: React.FC = () => {
     const [search, setSearch] = useState<string>('');
     const [questionnaireExpanded, setQuestionnaireExpanded] = useState<boolean>(false);
     const [questionnaireAnswers, setQuestionnaireAnswers] = useState<{ [key: string]: string }>({});
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const itemsPerPage = 15;
 
     useEffect(() => {
         fetch('http://localhost:8080/foerderung')
@@ -68,6 +70,12 @@ const App: React.FC = () => {
             )
         )
     );
+
+    const indexOfLastItem = currentPage * itemsPerPage;
+    const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+    const currentItems = filteredData.slice(indexOfFirstItem, indexOfLastItem);
+
+    const totalPages = Math.ceil(filteredData.length / itemsPerPage);
 
     return (
         <div className="d-flex">
@@ -120,7 +128,7 @@ const App: React.FC = () => {
                                     </div>
                                 )}
                             </div>
-                            {filteredData.map((förderung, index) => (
+                            {currentItems.map((förderung, index) => (
                                 <CCard key={index} className="mt-3" onClick={() => toggleExpand(index)} style={{ cursor: 'pointer' }}>
                                     <CCardHeader>{förderung.name}</CCardHeader>
                                     <CCardBody>
@@ -151,6 +159,15 @@ const App: React.FC = () => {
                                     </CCardBody>
                                 </CCard>
                             ))}
+                            <CPagination className="mt-3">
+                                <CPaginationItem disabled={currentPage === 1} onClick={() => setCurrentPage(currentPage - 1)}>Previous</CPaginationItem>
+                                {[...Array(totalPages)].map((_, i) => (
+                                    <CPaginationItem key={i} active={i + 1 === currentPage} onClick={() => setCurrentPage(i + 1)}>
+                                        {i + 1}
+                                    </CPaginationItem>
+                                ))}
+                                <CPaginationItem disabled={currentPage === totalPages} onClick={() => setCurrentPage(currentPage + 1)}>Next</CPaginationItem>
+                            </CPagination>
                         </CCol>
                     </CRow>
                 </CContainer>
