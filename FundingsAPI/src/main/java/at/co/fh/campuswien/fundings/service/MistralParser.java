@@ -17,7 +17,7 @@ import java.util.Map;
 @Service
 public class MistralParser implements AiParser {
     static private final String MISTRAL_ADDRESS = "https://api.mistral.ai/v1/chat/completions";
-    static private final String MESSAGE_TEMPLATE = "Schreibe die informationen aus der website, inkludiere die url des favicons der website, nur das json keine weiteren texte: %s in folgendem datenmodell zusammen: { \"institution\": \"Name der Institution\", \"name\": \"Name der F\u00F6rderung\", \"beschreibung\": \"Kurze Beschreibung der F\u00F6rderung\", \"betrag\": \"F\u00F6rderh\u00F6he (falls zutreffend)\", \"waehrung\": \"W\u00E4hrungseinheit\",\"kategorie\": \"Art der Förderung\", \"voraussetzungen\": [ \"Voraussetzung 1\", \"Voraussetzung 2\" ], \"bewerbung\": { \"frist\": \"\", \"prozess\": [ \"Schritt 1 der Bewerbung\", \"Schritt 2 der Bewerbung\" ], \"kontakt\": { \"telefon\": \"Telefonnummer\", \"email\": \"E-Mail-Adresse\", \"website\": \"Webseiten-Link\" } }, \"favicon\": \"path/to/image\" }, %s";
+    static private final String MESSAGE_TEMPLATE = "Schreibe die informationen aus der website, inkludiere die url des favicons der website, nur das json keine weiteren texte: %s in folgendem datenmodell zusammen: { \"institution\": \"Name der Institution\", \"name\": \"Name der F\u00F6rderung\", \"beschreibung\": \"Kurze Beschreibung der F\u00F6rderung\", \"betrag\": \"F\u00F6rderh\u00F6he (falls zutreffend)\", \"waehrung\": \"W\u00E4hrungseinheit\",\"kategorie\": \"Art der Förderung\", \"voraussetzungen\": [ \"Voraussetzung 1\", \"Voraussetzung 2\" ], \"bewerbung\": { \"frist\": \"\", \"prozess\": [ \"Schritt 1 der Bewerbung\", \"Schritt 2 der Bewerbung\" ], \"kontakt\": { \"telefon\": \"Telefonnummer\", \"email\": \"E-Mail-Adresse\", \"website\": \"Webseiten-Link\" } }, \"favicon\": \"path/to/image\" }, wenn du mehrere Förderungen findest gib ein array mit allen gefundenen Förderungen in diesem Datenmodell zurück, wrappe auch einzelne ergebnisse in ein array, %s";
 
     private final RestTemplate restTemplate;
 
@@ -26,11 +26,11 @@ public class MistralParser implements AiParser {
     }
 
     @Override
-    public Foerderung parseFoerderung(String targetUrl) throws JsonProcessingException {
+    public Foerderung[] parseFoerderung(String targetUrl) throws JsonProcessingException {
         return parseFoerderung(targetUrl, "");
     }
 
-    public Foerderung parseFoerderung(String targetUrl, String additionalInformation) throws JsonProcessingException {
+    public Foerderung[] parseFoerderung(String targetUrl, String additionalInformation) throws JsonProcessingException {
         String url = UriComponentsBuilder.fromHttpUrl(MISTRAL_ADDRESS).toUriString();
 
         Map<String, Object> payload = new HashMap<>();
@@ -51,8 +51,8 @@ public class MistralParser implements AiParser {
         JsonNode rootNode = mapper.readTree(res);
 
         var targetJson = rootNode.path("choices").get(0).path("message").path("content").textValue();
-        targetJson = targetJson.substring(targetJson.indexOf('{'));
+        targetJson = targetJson.substring(targetJson.indexOf('['));
 
-        return mapper.readValue(targetJson, Foerderung.class);
+        return mapper.readValue(targetJson, Foerderung[].class);
     }
 }
